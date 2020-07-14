@@ -28,6 +28,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chaseDistance: 5
   suspicionTime: 5
+  patrolPath: {fileID: 0}
+  waypointTolerance: 1
+  waypointDwellTime: 3
 --- !u!114 &8822045166007828852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -610,17 +613,17 @@ PrefabInstance:
     - target: {fileID: 169201794785817793, guid: 278b025680310e8488dad40175da6f54,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.81
+      value: 53.1
       objectReference: {fileID: 0}
     - target: {fileID: 169201794785817793, guid: 278b025680310e8488dad40175da6f54,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 45.7851
       objectReference: {fileID: 0}
     - target: {fileID: 169201794785817793, guid: 278b025680310e8488dad40175da6f54,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.01
+      value: 71.94
       objectReference: {fileID: 0}
     - target: {fileID: 169201794785817793, guid: 278b025680310e8488dad40175da6f54,
         type: 3}
@@ -630,7 +633,7 @@ PrefabInstance:
     - target: {fileID: 169201794785817793, guid: 278b025680310e8488dad40175da6f54,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.71275675
+      value: 0.7127567
       objectReference: {fileID: 0}
     - target: {fileID: 169201794785817793, guid: 278b025680310e8488dad40175da6f54,
         type: 3}
@@ -640,7 +643,7 @@ PrefabInstance:
     - target: {fileID: 169201794785817793, guid: 278b025680310e8488dad40175da6f54,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7014114
+      value: 0.70141137
       objectReference: {fileID: 0}
     - target: {fileID: 169201794785817793, guid: 278b025680310e8488dad40175da6f54,
         type: 3}
@@ -665,6 +668,11 @@ PrefabInstance:
     - target: {fileID: 5374427491889806750, guid: 278b025680310e8488dad40175da6f54,
         type: 3}
       propertyPath: healthPoints
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7808664507121501242, guid: 278b025680310e8488dad40175da6f54,
+        type: 3}
+      propertyPath: weaponDamage
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1752983309595643544, guid: 278b025680310e8488dad40175da6f54,
