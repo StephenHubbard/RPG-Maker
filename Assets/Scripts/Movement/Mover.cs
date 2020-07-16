@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using RPG.Saving;
+using RPG.Resources;
 
 namespace RPG.Movement
 {
