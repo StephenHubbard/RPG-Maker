@@ -88,6 +88,11 @@ PrefabInstance:
       propertyPath: chaseDistance
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 5773126104718365227, guid: 38dbe11624d85914296edaeb32939ce4,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 5773126104723353103, guid: 38dbe11624d85914296edaeb32939ce4,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
