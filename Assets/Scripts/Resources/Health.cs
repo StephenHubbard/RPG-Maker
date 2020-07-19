@@ -13,7 +13,13 @@ namespace RPG.Resources
     public class Health : MonoBehaviour, ISaveable
     {
         [SerializeField] float regenerationPercentage = 70f;
-        [SerializeField] UnityEvent takeDamage;
+        [SerializeField] TakeDamageEvent takeDamage;
+
+        [System.Serializable]
+        public class TakeDamageEvent : UnityEvent<float>
+        {
+
+        }
 
         LazyValue<float> healthPoints;
 
@@ -55,16 +61,18 @@ namespace RPG.Resources
             // print(gameObject.name + " took damage: " + damage);
 
             healthPoints.value = Mathf.Max(healthPoints.value - damage, 0);
+            takeDamage.Invoke(damage);
 
             if (healthPoints.value == 0)
             {
                 Die();
                 AwardExperience(instigator);
             }
-            else
-            {
-                takeDamage.Invoke();
-            }
+            // different from course
+            //else
+            //{
+            //    takeDamage.Invoke(damage);
+            //}
         }
 
         public float GetHealthPoints()
