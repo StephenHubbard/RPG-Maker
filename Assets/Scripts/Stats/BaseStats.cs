@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace RPG.Stats
 {
@@ -14,6 +15,7 @@ namespace RPG.Stats
         [SerializeField] Progression progression = null;
         [SerializeField] GameObject levelUpParticleEffect = null;
         [SerializeField] bool shouldUseModifiers = false;
+        [SerializeField] UnityEvent onLevelUpSFX;
 
         public event Action onLevelUp;
 
@@ -62,6 +64,7 @@ namespace RPG.Stats
         private void LevelUpEffect()
         {
             Instantiate(levelUpParticleEffect, transform);
+            onLevelUpSFX.Invoke();
         }
 
         public float GetStat(Stat stat)
