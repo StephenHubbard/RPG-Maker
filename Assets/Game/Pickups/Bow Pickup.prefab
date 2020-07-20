@@ -81,7 +81,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 369660813723383954}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &3429987299887530569
+--- !u!1001 &8207978612473895220
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -102,7 +102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4281075886339594, guid: 7f105c0c272e6c146b4b41cdc53ea356, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.239
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4281075886339594, guid: 7f105c0c272e6c146b4b41cdc53ea356, type: 3}
       propertyPath: m_LocalRotation.x
