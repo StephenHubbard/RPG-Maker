@@ -133,7 +133,6 @@ namespace RPG.Movement
             Vector3 velocity2 = navMeshAgent.velocity;
             Vector3 localVelocity = transform.InverseTransformDirection(velocity2);
             float speed = Mathf.Max(Mathf.Abs(localVelocity.z), Mathf.Abs(localVelocity.x));
-            print(speed);
 
             float velocity = Mathf.Max(Mathf.Abs(direction.z), Mathf.Abs(direction.x));
 

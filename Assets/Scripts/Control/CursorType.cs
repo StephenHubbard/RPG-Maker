@@ -7,5 +7,6 @@
         Combat,
         UI,
         Pickup,
+        Door,
     }
 }

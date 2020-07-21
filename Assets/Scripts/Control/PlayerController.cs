@@ -43,9 +43,10 @@ namespace RPG.Control
             }
 
             if (InteractWithComponent()) return;
+            InteractWithNothing();
             // InteractWithMovement();
 
-            SetCursor(CursorType.None);
+            //SetCursor(CursorType.None);
         }
 
 
@@ -105,6 +106,11 @@ namespace RPG.Control
             //    return true;
             //}
             //return false;
+        }
+
+        private void InteractWithNothing()
+        {
+            SetCursor(CursorType.Movement);
         }
 
         private bool RaycastNavMesh(out Vector3 target)
