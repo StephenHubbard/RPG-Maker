@@ -16,8 +16,6 @@ namespace RPG.Control
 
         Health health;
 
-        
-
         [System.Serializable]
         struct CursorMapping
         {
@@ -45,7 +43,7 @@ namespace RPG.Control
             }
 
             if (InteractWithComponent()) return;
-            if (InteractWithMovement()) return;
+            // InteractWithMovement();
 
             SetCursor(CursorType.None);
         }
@@ -91,23 +89,22 @@ namespace RPG.Control
             return hits;
         }
 
-        private bool InteractWithMovement()
+        private void InteractWithMovement()
         {
-            
-            Vector3 target;
-            bool hasHit = RaycastNavMesh(out target);
-            if (hasHit)
-            {
-                if (!GetComponent<Mover>().CanMoveTo(target)) return false;
+            //Vector3 target;
+            //bool hasHit = RaycastNavMesh(out target);
+            //if (hasHit)
+            //{
+            //    if (!GetComponent<Mover>().CanMoveTo(target)) return false;
 
-                if (Input.GetMouseButton(0))
-                {
-                    GetComponent<Mover>().StartMoveAction(target, 1f);
-                }
-                SetCursor(CursorType.Movement);
-                return true;
-            }
-            return false;
+            //    if (Input.GetMouseButton(0))
+            //    {
+            //        GetComponent<Mover>().StartMoveAction(target, 1f);
+            //    }
+            //    SetCursor(CursorType.Movement);
+            //    return true;
+            //}
+            //return false;
         }
 
         private bool RaycastNavMesh(out Vector3 target)
@@ -128,8 +125,6 @@ namespace RPG.Control
 
             return true;
         }
-
-        
 
         private void SetCursor(CursorType type)
         {
