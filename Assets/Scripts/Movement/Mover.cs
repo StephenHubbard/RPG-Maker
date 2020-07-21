@@ -42,25 +42,15 @@ namespace RPG.Movement
         void Update()
         {
             navMeshAgent.enabled = !health.IsDead();
-            UpdateAnimator();
             WasdMove();
             navigateCameraAngle();
-        }
-
-        private void navigateCameraAngle()
-        {
             if (gameObject.tag == "Player")
             {
-                if (Input.GetMouseButton(1))
-                {
-                    freeLook.m_XAxis.m_InputAxisName = "Mouse X";
-                    freeLook.m_YAxis.m_InputAxisName = "Mouse Y";
-                }
-                else if (!Input.GetMouseButton(1))
-                {
-                    freeLook.m_XAxis.m_InputAxisName = "";
-                    freeLook.m_YAxis.m_InputAxisName = "";
-                }
+                UpdateAnimatorPlayer();
+            }
+            else
+            {
+                UpdateAnimator();
             }
         }
 
@@ -81,30 +71,74 @@ namespace RPG.Movement
             return true;
         }
 
+        private void navigateCameraAngle()
+        {
+            if (gameObject.tag == "Player")
+            {
+                if (Input.GetMouseButton(1))
+                {
+                    freeLook.m_XAxis.m_InputAxisName = "Mouse X";
+                    freeLook.m_YAxis.m_InputAxisName = "Mouse Y";
+                }
+                else if (!Input.GetMouseButton(1))
+                {
+                    freeLook.m_XAxis.m_InputAxisName = "";
+                    freeLook.m_YAxis.m_InputAxisName = "";
+                    freeLook.m_XAxis.m_InputAxisValue = 0;
+                    freeLook.m_YAxis.m_InputAxisValue = 0;
+                }
+            }
+        }
+
+
         public void WasdMove()
         {
             if (gameObject.tag == "Player")
             {
-                float turnSmoothTime = 0.1f;
+                float turnSmoothTime = 0.05f;
                 float horizontal = Input.GetAxisRaw("Horizontal");
-                float vertical = Input.GetAxis("Vertical");
+                float vertical = Math.Sign(Input.GetAxis("Vertical"));
                 Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
-                if (direction.magnitude >= .1f)
+                if (direction.magnitude >= .01f)
                 {
-                    float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + mainCam.eulerAngles.y;
+                    float targetAngle = (Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg) + mainCam.eulerAngles.y;
                     float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
                     transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
                     Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
                     navMeshAgent.Move(moveDirection.normalized * maxSpeed * Time.deltaTime);
-                    navMeshAgent.speed = maxSpeed * Mathf.Clamp01(maxSpeed);
-                    navMeshAgent.velocity = direction;
+                    //navMeshAgent.speed = maxSpeed;
+                    //navMeshAgent.velocity = direction;
                     GetComponent<ActionScheduler>().CancelCurrentAction();
                 }
             }
         }
 
+        private void UpdateAnimator()
+        {
+            Vector3 velocity = navMeshAgent.velocity;
+            Vector3 localVelocity = transform.InverseTransformDirection(velocity);
+            float speed = Mathf.Max(Mathf.Abs(localVelocity.z), Mathf.Abs(localVelocity.x));
+            GetComponent<Animator>().SetFloat("forwardSpeed", (speed * maxSpeed));
+        }
+
+        private void UpdateAnimatorPlayer()
+        {
+            // very hacky way to ensure movement of some kind is being passed to the animator
+            float horizontal = Input.GetAxisRaw("Horizontal");
+            float vertical = Math.Sign(Input.GetAxis("Vertical"));
+            Vector3 direction = new Vector3(horizontal, 0f, vertical);
+
+            Vector3 velocity2 = navMeshAgent.velocity;
+            Vector3 localVelocity = transform.InverseTransformDirection(velocity2);
+            float speed = Mathf.Max(Mathf.Abs(localVelocity.z), Mathf.Abs(localVelocity.x));
+            print(speed);
+
+            float velocity = Mathf.Max(Mathf.Abs(direction.z), Mathf.Abs(direction.x));
+
+            GetComponent<Animator>().SetFloat("forwardSpeed", Mathf.Max(velocity, speed) * maxSpeed);
+        }
 
         public void MoveTo(Vector3 destination, float speedFraction)
         {
@@ -116,14 +150,6 @@ namespace RPG.Movement
         public void Cancel()
         {
             navMeshAgent.isStopped = true;
-        }
-
-        private void UpdateAnimator()
-        {
-            Vector3 velocity = navMeshAgent.velocity;
-            Vector3 localVelocity = transform.InverseTransformDirection(velocity);
-            float speed = Mathf.Abs(localVelocity.z);
-            GetComponent<Animator>().SetFloat("forwardSpeed", (speed * maxSpeed));
         }
 
         private float GetPathLength(NavMeshPath path)

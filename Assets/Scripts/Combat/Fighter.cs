@@ -178,7 +178,5 @@ namespace RPG.Combat
             WeaponConfig weapon = UnityEngine.Resources.Load<WeaponConfig>(weaponName);
             EquipWeapon(weapon);
         }
-
-        
     }
 }
